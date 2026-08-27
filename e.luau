@@ -175,7 +175,7 @@ else
 	SendCaption("Please wait around 20 seconds to die")
 	RemotesFolder.Underwater:FireServer(true)
 end
-task.wait(1)
+task.wait(3.5)
 LocalPlayer:GetAttributeChangedSignal("Alive"):Wait()
 local HasReviveAndIsDead = false
 if game.Players.LocalPlayer.PlayerGui.TopbarUI.Topbar.Revives.Text ~= "0" then
@@ -184,6 +184,7 @@ end
 if HasReviveAndIsDead == true then
 SendCaption("Player has died, Reviving.....")
 Services.ReplicatedStorage:FindFirstChild("RemotesFolder").Revive:FireServer()
+replicatesignal(LocalPlayer.Kill)
 task.wait(1)
 SendCaption("Player has died after reviving, joining a new run...")
 RemotesFolder.PlayAgain:FireServer()
