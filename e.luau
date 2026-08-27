@@ -4,6 +4,7 @@ end
 
 print("Abysall Hub death farm for DOORS, created by FireBacon (bocaj111004)")
 print("dsc.gg/abysallhub")
+print("this is a fork, so all credits goes to FireBacon")
 
 local Services = setmetatable({}, {
 	__index = function(self, Key)
@@ -165,7 +166,7 @@ local function WalkPosition(TargetPosition)
 	local Finished = false
 	local Connection
 	Connection = Services.RunService.RenderStepped:Connect(function()
-		if not Character or not Character.Parentor not Humanoid.Parent then
+		if not Character or not Character.Parent or not Humanoid.Parent then
 			Finished = true
 			return
 		end
