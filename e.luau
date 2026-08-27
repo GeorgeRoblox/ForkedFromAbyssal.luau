@@ -178,6 +178,7 @@ end
 task.wait(3.5)
 LocalPlayer:GetAttributeChangedSignal("Alive"):Wait()
 local HasReviveAndIsDead = false
+local DeadAfterRevive = false
 if game.Players.LocalPlayer.PlayerGui.TopbarUI.Topbar.Revives.Text ~= "0" then
     HasReviveAndIsDead = true
 end
@@ -186,15 +187,21 @@ if HasReviveAndIsDead == true then
 SendCaption("Player has died, Reviving.....")
 task.wait(1.5)
 Services.ReplicatedStorage:FindFirstChild("RemotesFolder").Revive:FireServer()
-task.wait(4)
-for i = 1,2 do
+while not LocalPlayer.Character then
+	task.wait()
+end
+print("dead")
+if DeadAfterRevive == false then
 replicatesignal(LocalPlayer.Kill)
+DeadAfterRevive = true
 end
 task.wait(2)
 SendCaption("Player has died after reviving, joining a new run...")
 task.wait(1.5)
+if DeadAfterRevive == true then
 RemotesFolder.PlayAgain:FireServer()
 QueueTeleport(TeleportCode)
+end
 else
 SendCaption("Player has died, joining a new run...")
 RemotesFolder.PlayAgain:FireServer()
