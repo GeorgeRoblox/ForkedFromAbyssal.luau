@@ -181,11 +181,11 @@ local HasReviveAndIsDead = false
 if game.Players.LocalPlayer.PlayerGui.TopbarUI.Topbar.Revives.Text ~= "0" then
     HasReviveAndIsDead = true
 end
+task.wait(2)
 if HasReviveAndIsDead == true then
 SendCaption("Player has died, Reviving.....")
 task.wait(1.5)
 Services.ReplicatedStorage:FindFirstChild("RemotesFolder").Revive:FireServer()
-LocalPlayer:GetAttributeChangedSignal("Alive"):Wait()
 task.wait(4)
 for i = 1,2 do
 replicatesignal(LocalPlayer.Kill)
