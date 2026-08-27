@@ -184,8 +184,9 @@ end
 if HasReviveAndIsDead == true then
 SendCaption("Player has died, Reviving.....")
 Services.ReplicatedStorage:FindFirstChild("RemotesFolder").Revive:FireServer()
+LocalPlayer:GetAttributeChangedSignal("Alive"):Wait()
 replicatesignal(LocalPlayer.Kill)
-task.wait(1)
+task.wait(1.5)
 SendCaption("Player has died after reviving, joining a new run...")
 RemotesFolder.PlayAgain:FireServer()
 QueueTeleport(TeleportCode)
