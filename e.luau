@@ -193,6 +193,7 @@ end
 print("dead")
 if DeadAfterRevive == false then
 replicatesignal(LocalPlayer.Kill)
+SendCaption("Player died........")
 DeadAfterRevive = true
 end
 task.wait(2)
