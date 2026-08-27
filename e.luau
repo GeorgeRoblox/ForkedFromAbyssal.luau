@@ -179,6 +179,7 @@ task.wait(3.5)
 LocalPlayer:GetAttributeChangedSignal("Alive"):Wait()
 local HasReviveAndIsDead = false
 local DeadAfterRevive = false
+local ShouldPlayAgain = false
 if game.Players.LocalPlayer.PlayerGui.TopbarUI.Topbar.Revives.Text ~= "0" then
     HasReviveAndIsDead = true
 end
@@ -191,15 +192,19 @@ while not LocalPlayer.Character do
 	task.wait()
 end
 print("dead")
-if DeadAfterRevive == false then
-replicatesignal(LocalPlayer.Kill)
+if replicatesignal then
+	replicatesignal(LocalPlayer.Kill)
+else
+	SendCaption("Please wait around 20 seconds to die")
+	RemotesFolder.Underwater:FireServer(true)
+end
 SendCaption("Player died........")
 DeadAfterRevive = true
-end
+ShouldPlayAgain = true
 task.wait(2)
 SendCaption("Player has died after reviving, joining a new run...")
 task.wait(1.5)
-if DeadAfterRevive == true then
+if ShouldPlayAgain == true then
 RemotesFolder.PlayAgain:FireServer()
 QueueTeleport(TeleportCode)
 end
