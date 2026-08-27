@@ -180,6 +180,7 @@ LocalPlayer:GetAttributeChangedSignal("Alive"):Wait()
 local HasReviveAndIsDead = false
 local DeadAfterRevive = false
 local ShouldPlayAgain = false
+local FinishedReviving = false
 local Revives = LocalPlayer.PlayerGui.TopbarUI.Topbar.Revives
 if replicatesignal then
     replicatesignal(LocalPlayer.Kill)
@@ -199,7 +200,7 @@ if ReviveCount > 0 then
     repeat
         task.wait()
     until LocalPlayer:GetAttribute("Alive") == true
-    task.wait(1)
+    task.wait(3)
     if replicatesignal then
         replicatesignal(LocalPlayer.Kill)
     else
@@ -212,11 +213,21 @@ if ReviveCount > 0 then
     SendCaption("Player died........")
     task.wait(2)
     SendCaption("Player has died after reviving, joining a new run...")
+	if FinishedReviving == false then
+	FinishedReviving = true
+	end
     task.wait(1.5)
 else
     SendCaption("Player has died, joining a new run...")
     task.wait(1.5)
+if FinishedReviving == false then
+	FinishedReviving = true
+	end
 end
 
+if FinishedReviving == true then
 RemotesFolder.PlayAgain:FireServer()
 QueueTeleport(TeleportCode)
+else
+	SendCaption("You didnt finish reviving/dying")
+end
