@@ -180,36 +180,43 @@ LocalPlayer:GetAttributeChangedSignal("Alive"):Wait()
 local HasReviveAndIsDead = false
 local DeadAfterRevive = false
 local ShouldPlayAgain = false
-if game.Players.LocalPlayer.PlayerGui.TopbarUI.Topbar.Revives.Text ~= "0" then
-    HasReviveAndIsDead = true
-end
-task.wait(2)
-if HasReviveAndIsDead == true then
-SendCaption("Player has died, Reviving.....")
-task.wait(1.5)
-Services.ReplicatedStorage:FindFirstChild("RemotesFolder").Revive:FireServer()
-while not LocalPlayer.Character do
-	task.wait()
-end
-print("dead")
+local Revives = LocalPlayer.PlayerGui.TopbarUI.Topbar.Revives
 if replicatesignal then
-	replicatesignal(LocalPlayer.Kill)
+    replicatesignal(LocalPlayer.Kill)
 else
-	SendCaption("Please wait around 20 seconds to die")
-	RemotesFolder.Underwater:FireServer(true)
+    SendCaption("Please wait around 20 seconds to die")
+    RemotesFolder.Underwater:FireServer(true)
 end
-SendCaption("Player died........")
-DeadAfterRevive = true
-ShouldPlayAgain = true
+repeat
+    task.wait()
+until LocalPlayer:GetAttribute("Alive") == false
 task.wait(2)
-SendCaption("Player has died after reviving, joining a new run...")
-task.wait(1.5)
-if ShouldPlayAgain == true then
-RemotesFolder.PlayAgain:FireServer()
-QueueTeleport(TeleportCode)
-end
+local ReviveCount = tonumber(Revives.Text:match("%d+")) or 0
+if ReviveCount > 0 then
+    SendCaption("Player has died, Reviving.....")
+    task.wait(1.5)
+    RemotesFolder.Revive:FireServer()
+    repeat
+        task.wait()
+    until LocalPlayer:GetAttribute("Alive") == true
+    task.wait(1)
+    if replicatesignal then
+        replicatesignal(LocalPlayer.Kill)
+    else
+        SendCaption("Please wait around 20 seconds to die")
+        RemotesFolder.Underwater:FireServer(true)
+    end
+    repeat
+        task.wait()
+    until LocalPlayer:GetAttribute("Alive") == false
+    SendCaption("Player died........")
+    task.wait(2)
+    SendCaption("Player has died after reviving, joining a new run...")
+    task.wait(1.5)
 else
-SendCaption("Player has died, joining a new run...")
+    SendCaption("Player has died, joining a new run...")
+    task.wait(1.5)
+end
+
 RemotesFolder.PlayAgain:FireServer()
 QueueTeleport(TeleportCode)
-end
