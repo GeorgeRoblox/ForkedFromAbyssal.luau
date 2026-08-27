@@ -13,7 +13,7 @@ local Services = setmetatable({}, {
 
 local QueueTeleport = queue_on_teleport or queueonteleport
 local TeleportCode = [==[
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/GeorgeRoblox/Abysall/refs/heads/main/Scripts/DeathFarm.luau"))()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/GeorgeRoblox/ForkedFromAbyssal.luau/refs/heads/main/e.luau"))()
 ]==]
 
 local LocalPlayer = Services.Players.LocalPlayer
