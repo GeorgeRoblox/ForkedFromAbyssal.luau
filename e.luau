@@ -183,8 +183,10 @@ if game.Players.LocalPlayer.PlayerGui.TopbarUI.Topbar.Revives.Text ~= "0" then
 end
 if HasReviveAndIsDead == true then
 SendCaption("Player has died, Reviving.....")
+task.wait(1.5)
 Services.ReplicatedStorage:FindFirstChild("RemotesFolder").Revive:FireServer()
 LocalPlayer:GetAttributeChangedSignal("Alive"):Wait()
+task.wait(1.5)
 replicatesignal(LocalPlayer.Kill)
 task.wait(1.5)
 SendCaption("Player has died after reviving, joining a new run...")
