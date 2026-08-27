@@ -190,6 +190,8 @@ task.wait(1.5)
 replicatesignal(LocalPlayer.Kill)
 task.wait(1.5)
 SendCaption("Player has died after reviving, joining a new run...")
+replicatesignal(LocalPlayer.Kill)
+task.wait(1.5)
 RemotesFolder.PlayAgain:FireServer()
 QueueTeleport(TeleportCode)
 else
