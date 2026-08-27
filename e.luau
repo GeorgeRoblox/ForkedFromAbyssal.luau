@@ -13,7 +13,7 @@ local Services = setmetatable({}, {
 
 local QueueTeleport = queue_on_teleport or queueonteleport
 local TeleportCode = [==[
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/GeorgeRoblox/ForkedFromAbyssal.luau/refs/heads/main/e.luau"))()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/GeorgeRoblox/Abysall/refs/heads/main/Scripts/DeathFarm.luau"))()
 ]==]
 
 local LocalPlayer = Services.Players.LocalPlayer
@@ -175,7 +175,7 @@ else
 	SendCaption("Please wait around 20 seconds to die")
 	RemotesFolder.Underwater:FireServer(true)
 end
-
+task.wait(1)
 LocalPlayer:GetAttributeChangedSignal("Alive"):Wait()
 local HasReviveAndIsDead = false
 if game.Players.LocalPlayer.PlayerGui.TopbarUI.Topbar.Revives.Text ~= "0" then
