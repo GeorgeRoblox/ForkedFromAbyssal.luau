@@ -187,7 +187,7 @@ if HasReviveAndIsDead == true then
 SendCaption("Player has died, Reviving.....")
 task.wait(1.5)
 Services.ReplicatedStorage:FindFirstChild("RemotesFolder").Revive:FireServer()
-while not LocalPlayer.Character then
+while not LocalPlayer.Character do
 	task.wait()
 end
 print("dead")
